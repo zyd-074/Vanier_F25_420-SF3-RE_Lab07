@@ -1,9 +1,9 @@
 package vaniercollege.zyd;
 
 import javafx.animation.*;
+import javafx.animation.Animation.Status;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -17,7 +17,6 @@ import javafx.util.*;
  * 
  */
 public class YuDuoZhang_Lab07 extends Application{
-
     /**
      * @param args the command line arguments
      */
@@ -53,6 +52,7 @@ public class YuDuoZhang_Lab07 extends Application{
         transA.setAutoReverse(false);
         transA.setInterpolator(Interpolator.LINEAR);
         transA.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        transA.setCycleCount(Animation.INDEFINITE);
         
         // Part B
         // ObjectB
@@ -83,6 +83,7 @@ public class YuDuoZhang_Lab07 extends Application{
         
         SequentialTransition seqB = new SequentialTransition(ft,st,rt,tt);
         seqB.setNode(objectB);
+        seqB.setCycleCount(Animation.INDEFINITE);
         
         // Start A and B together
         ParallelTransition ab = new ParallelTransition(transA, seqB);
@@ -95,14 +96,20 @@ public class YuDuoZhang_Lab07 extends Application{
         
         Button reset = new Button("Reset");
         reset.setOnAction(e -> {
-            ab.jumpTo(Duration.ZERO);
+            if (ab.getStatus().equals(Status.PAUSED)) {
+                ab.play();
+                ab.jumpTo(Duration.millis(1));
+                ab.pause();
+            } else {
+                ab.play();
+                ab.jumpTo(Duration.millis(1));
+            }
         });
         
         Button exit = new Button("Pause");
         exit.setOnAction(e -> {
             ab.pause();
         });
-        
         
         // Scene
         BorderPane root = new BorderPane();
