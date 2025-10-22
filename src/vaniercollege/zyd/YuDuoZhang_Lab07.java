@@ -14,7 +14,7 @@ import javafx.util.*;
 
 /**
  * @author Yu Duo Zhang (2480549)
- * 
+ * https://github.com/zyd-074/Vanier_F25_420-SF3-RE_Lab07.git
  */
 public class YuDuoZhang_Lab07 extends Application{
     /**
